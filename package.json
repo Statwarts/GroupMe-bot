@@ -1,0 +1,29 @@
+{
+  "name": "mebots-example-javascript",
+  "version": "1.0.0",
+  "description": "A simple GroupMe bot written in Node.js, using the Mebots API",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "axios": "^0.19.0",
+    "mebots": "^1.2.0"
+  },
+  "keywords": [
+    "node",
+    "mebots",
+    "express",
+    "groupme",
+    "bot"
+  ],
+  "engine": {
+    "node": "10.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ErikBoesen/mebots-example-javascript"
+  },
+  "license": "MIT"
+}
