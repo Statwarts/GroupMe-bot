@@ -11,22 +11,26 @@ app.post("/receive", async (req, res) => {
     sendMessage("Pong!");
     console.log("Ponged!");
   }
-  if(req.body.text.includes("has joined the group") && req.body.system === true){
-    sendMessage(`Welcome to the group! ${req.body.name}`);
+  if (
+    req.body.text.includes("has joined the group") &&
+    req.body.system === true
+  ) {
+    const name = req.body.text.split(" has joined the group")[0];
+    sendMessage(`Welcome to the group! ${name}`);
   }
-  console.log(req.body.text , " by ", req.body.name);
+  console.log(req.body.text, " by ", req.body.name);
 });
 
-function sendMessage(text) {  
-    axios.post("https://api.groupme.com/v3/bots/post", {
-      method: "post",
-      Headers: {
-        "Content-Type": "application/json",
-      },
-      bot_id: process.env.BOT_TOKEN,
-      text: text,
-    });
+function sendMessage(text) {
+  axios.post("https://api.groupme.com/v3/bots/post", {
+    method: "post",
+    Headers: {
+      "Content-Type": "application/json",
+    },
+    bot_id: process.env.BOT_TOKEN,
+    text: text,
+  });
 }
-app.listen(3000,()=>{
+app.listen(3000, () => {
   console.log("Listening on port 3000");
 });
