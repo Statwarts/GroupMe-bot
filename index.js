@@ -4,7 +4,7 @@ const mebots = require("mebots");
 const app = express();
 app.use(express.json());
 
-let bot = new mebots.Bot("your_bot_shortname_here", process.env.BOT_TOKEN);
+let bot = new mebots.Bot("Innerve8", process.env.BOT_TOKEN);
 
 app.post("/receive", async (req, res) => {
   if (req.body.text === "/ping") {
