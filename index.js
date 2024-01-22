@@ -18,6 +18,13 @@ app.post("/receive", async (req, res) => {
     const name = req.body.text.split(" has joined the group")[0];
     sendMessage(`Welcome to the group! ${name}`);
   }
+  if (
+    req.body.text.includes("has left the group") &&
+    req.body.system === true
+  ) {
+    const name = req.body.text.split(" has left the group")[0];
+    sendMessage(`Goodbye! ${name}`);
+  }
   console.log(req.body.text, " by ", req.body.name);
 });
 
