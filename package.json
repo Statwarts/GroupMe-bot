@@ -8,7 +8,7 @@
     "dev":"nodemon index.js"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^1.6.0",
     "express": "^4.16.4",
     "mebots": "^1.2.0",
     "nodemon": "^3.0.3"
