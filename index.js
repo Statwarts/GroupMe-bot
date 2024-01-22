@@ -12,7 +12,7 @@ app.post("/receive", async (req, res) => {
     console.log("Ponged!");
   }
   if(req.body.text.includes("has joined the group")){
-    sendMessage(`Welcome to the group! ${req.body.user}`);
+    sendMessage(`Welcome to the group! ${req.body.name}`);
   }
   console.log(req.body.text , " by ", req.body.name);
 });
