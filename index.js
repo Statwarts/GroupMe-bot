@@ -11,7 +11,7 @@ app.post("/receive", async (req, res) => {
     sendMessage("Pong!");
     console.log("Ponged!");
   }
-  if(req.body.text.includes("has joined the group")){
+  if(req.body.text.includes("has joined the group") && req.body.system === true){
     sendMessage(`Welcome to the group! ${req.body.name}`);
   }
   console.log(req.body.text , " by ", req.body.name);
@@ -27,7 +27,6 @@ function sendMessage(text) {
       text: text,
     });
 }
-
 app.listen(3000,()=>{
   console.log("Listening on port 3000");
 });
