@@ -8,13 +8,16 @@ let bot = new mebots.Bot("Innerve8", process.env.BOT_TOKEN);
 
 app.post("/receive", async (req, res) => {
   if (req.body.text === "/ping") {
-    sendMessage("Ah stopp!", req.body.group_id);
+    sendMessage("Pong!");
     console.log("Ponged!");
+  }
+  if(req.body.text.includes("has joined the group  by  GroupMe")){
+    sendMessage(`Welcome to the group! ${req.body.user}`);
   }
   console.log(req.body.text , " by ", req.body.name);
 });
 
-function sendMessage(text, group_id) {  
+function sendMessage(text) {  
     axios.post("https://api.groupme.com/v3/bots/post", {
       method: "post",
       Headers: {
