@@ -11,7 +11,7 @@ app.post("/receive", async (req, res) => {
     sendMessage("Pong!");
     console.log("Ponged!");
   }
-  if(req.body.text.includes("has joined the group  by  GroupMe")){
+  if(req.body.text.includes("has joined the group")){
     sendMessage(`Welcome to the group! ${req.body.user}`);
   }
   console.log(req.body.text , " by ", req.body.name);
