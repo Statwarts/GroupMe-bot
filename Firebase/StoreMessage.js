@@ -1,4 +1,4 @@
-import {db , storage , app} from './firebaseConfig.js';
+import {db , storage , app} from './FirebaseConfig.js';
 
 const StoreMessage = async (message) => {
     try {
