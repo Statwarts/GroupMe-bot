@@ -28,16 +28,32 @@ app.post("/receive", async (req, res) => {
   console.log(req.body.text, " by ", req.body.name);
 });
 
-function sendMessage(text) {
-  axios.post("https://api.groupme.com/v3/bots/post", {
-    method: "post",
-    Headers: {
-      "Content-Type": "application/json",
-    },
-    bot_id: process.env.BOT_TOKEN,
-    text: text,
-  });
+// function sendMessage(text) {
+//   axios.post("https://api.groupme.com/v3/bots/post", {
+//     method: "post",
+//     Headers: {
+//       "Content-Type": "application/json",
+//     },
+//     bot_id: process.env.BOT_TOKEN,
+//     text: text,
+//   });
+// }
+async function sendMessage(text) {
+  try {
+    await axios.post("https://api.groupme.com/v3/bots/post", {
+      text: text,
+    }, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  } catch (error) {
+    console.error("Error sending message:", error.message);
+  }
 }
+
+
+
 app.listen(3000, () => {
   console.log("Listening on port 3000");
 });
