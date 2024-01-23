@@ -1,8 +1,7 @@
 
-import { initializeApp } from "firebase/app";
-// import { getAnalytics } from "firebase/analytics";
-import { getStorage } from "firebase/storage";
-import { getFirestore } from "firebase/firestore";
+const { initializeApp } = require('firebase/app');
+const { getStorage } = require('firebase/storage');
+const { getFirestore } = require('firebase/firestore');
 
 const firebaseConfig = {
   apiKey: "AIzaSyDkjfslq4x_cSyGs23KTrhR_ZAhWhlWEQI",
@@ -20,5 +19,4 @@ const db = getFirestore(app);
 const storage = getStorage(app);
 // // const analytics = getAnalytics(app);
 
-
-export {db , storage , app};
+module.exports = { db, storage, app };
