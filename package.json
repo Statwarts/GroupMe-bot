@@ -1,5 +1,5 @@
 {
-  "name": "mebots-example-javascript",
+  "name": "@groupme-bot",
   "version": "1.0.0",
   "description": "A simple GroupMe bot written in Node.js",
   "main": "index.js",
@@ -24,7 +24,7 @@
     "bot"
   ],
   "engine": {
-    "node": "10.x"
+    "node": "20.x"
   },
   "repository": {
     "type": "git",

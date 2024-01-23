@@ -1,4 +1,4 @@
-import StoreMessage from "./Firebase/StoreMessage";
+const StoreMessage = require("./Firebase/StoreMessage.js");
 
 const express = require("express");
 const axios = require("axios");
@@ -28,7 +28,7 @@ app.post("/receive", async (req, res) => {
     sendMessage(`Goodbye! ${name}`);
   }
   console.log(req.body.text, " by ", req.body.name);
-  // StoreMessage(req.body.text);
+  StoreMessage(req.body.text);
 });
 
 // function sendMessage(text) {

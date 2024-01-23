@@ -1,4 +1,4 @@
-import {db , storage , app} from './FirebaseConfig.js';
+const { db, storage, app } = import('./FirebaseConfig.mjs');
 
 const StoreMessage = async (message) => {
     try {
@@ -12,5 +12,4 @@ const StoreMessage = async (message) => {
     }
 };
 
-
-export default StoreMessage;
+module.exports = StoreMessage;
