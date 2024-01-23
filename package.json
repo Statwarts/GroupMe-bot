@@ -13,7 +13,8 @@
     "express": "^4.16.4",
     "firebase": "^10.7.2",
     "mebots": "^1.2.0",
-    "nodemon": "^3.0.3"
+    "nodemon": "^3.0.3",
+    "undici": "^6.4.0"
   },
   "keywords": [
     "node",
