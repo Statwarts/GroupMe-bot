@@ -7,6 +7,10 @@ const app = express();
 app.use(express.json());
 
 // let bot = new mebots.Bot("Innerve8", process.env.BOT_TOKEN);
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
 
 app.post("/receive", async (req, res) => {
   if (req.body.text === "/ping") {
