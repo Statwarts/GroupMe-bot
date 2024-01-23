@@ -1,10 +1,10 @@
 const express = require("express");
 const axios = require("axios");
-const mebots = require("mebots");
+// const mebots = require("mebots");
 const app = express();
 app.use(express.json());
 
-let bot = new mebots.Bot("Innerve8", process.env.BOT_TOKEN);
+// let bot = new mebots.Bot("Innerve8", process.env.BOT_TOKEN);
 
 app.post("/receive", async (req, res) => {
   if (req.body.text === "/ping") {
@@ -42,8 +42,10 @@ async function sendMessage(text) {
   try {
     await axios.post("https://api.groupme.com/v3/bots/post", {
       text: text,
+      method: "post",
+      bot_id: process.env.BOT_TOKEN,
     }, {
-      headers: {
+      Headers: {
         "Content-Type": "application/json",
       },
     });
