@@ -1,4 +1,4 @@
-const StoreMessage = require("./Firebase/StoreMessage.js");
+const StoreMessage = require("./Firebase/StoreMessage.cjs");
 
 const express = require("express");
 const axios = require("axios");
