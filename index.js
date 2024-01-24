@@ -20,13 +20,13 @@ app.get("/", (req, res) => {
     usage : /sum
 /roast:
     roasts your friend like you do
-    usage: /roast <name>
+    >> /roast <name>
 /rem:
     make reminders for your friends
-    usage: /rem <name>-<time in DD/MM/YY/HH:MM> <reminder>
+    >> /rem <name>-<time in DD/MM/YY/HH:MM> <reminder>
 /info:
     search anything with power of bing!!!
-    usage: /info <search keywords>
+    >> /info <search keywords>
 
 */
 
@@ -39,16 +39,19 @@ app.post("/receive", async (req, res) => {
     const helpMessage = 
 `/sum:
       summarises your unread texts
-      usage : /sum
+      >> /sum
+
 /roast:
       roasts your friend like you do
-      usage: /roast <name>
+      >> /roast <name>
+
 /rem:
       make reminders for your friends
-      usage: /rem <name>-<time in DD/MM/YY/HH:MM> <reminder>
+      >> /rem <name>:<time in DD/MM/YY/HH:MM> <reminder>
+
 /info:
       search anything with power of bing!!!
-      usage: /info <search keywords>`;
+      >> /info <search keywords>`;
     sendMessage(helpMessage);
   }
   if (
