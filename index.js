@@ -36,7 +36,7 @@ app.post("/receive", async (req, res) => {
     sendMessage(`Goodbye! ${name}`);
   }
   console.log(req.body.text, " by ", req.body.name);
-  // StoreMessage(req.body.text);
+  StoreMessage(req.body.text);
 });
 
 // function sendMessage(text) {
