@@ -21,6 +21,7 @@ app.post("/receive", async (req, res) => {
   const senderName = req.body.name;
   const system = req.body.system;
   const command = text.split(" ")[0];
+  console.log("the command is ",command);
 
   switch (system) {
     case true:
@@ -82,16 +83,21 @@ app.post("/receive", async (req, res) => {
             await sendMessage("Invalid Date");
             break;
           }
-          schedule.scheduleJob(scheduledTime,()=> {sendMessage(reminder)});
+          schedule.scheduleJob(scheduledTime, () => {
+            sendMessage(reminder);
+          });
           await sendMessage("Reminder set!");
+
           break;
+
         case "/info":
           const searchKey = text.slice(6);
           // Implement search logic here
           break;
 
         default:
-          sendMessage("Invalid Command");
+            sendMessage("Invalid Command");
+            console.log("Invalid Command",command);
           break;
       }
       break;
