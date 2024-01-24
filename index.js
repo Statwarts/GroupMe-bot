@@ -77,15 +77,15 @@ app.post("/receive", async (req, res) => {
           }
 
           const reminder = `A reminder for ${name}\n` + text.slice(i + 1);
-          console.log(reminder);
+          console.log(time);
           const scheduledTime = parse(time, "dd/MM/yyyy HH:mm", new Date(), {
             addSuffix: true,
           });
-          console.log(scheduledTime);
-          if (scheduledTime === "Invalid Date") {
-            await sendMessage("Invalid Date");
-            break;
-          }
+          if (isNaN(scheduledTime)) {
+            sendMessage('Invalid date and time format. Please use a valid format.');
+            return;
+        }
+          console.log("parsed time :",scheduledTime);
           schedule.scheduleJob(scheduledTime, () => {
             sendMessage(reminder);
           });
