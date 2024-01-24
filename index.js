@@ -85,7 +85,7 @@ app.post("/receive", async (req, res) => {
             return;
           }
 
-          const dateAndTime = DateTime.fromJSDate(scheduledTime).toUTC() ; 
+          const dateAndTime = DateTime.fromJSDate(scheduledTime,{zone:'Asia/Kolkata'}).toUTC() ; 
           console.log("parsed time :", dateAndTime);
           schedule.scheduleJob(dateAndTime, () => {
             console.log("sending reminder");
