@@ -37,17 +37,17 @@ app.post("/receive", async (req, res) => {
   }
   if (req.body.text === "/help") {
     const helpMessage = `/sum:
-                  \n\tsummarises your unread texts\n\t
-                  usage : /sum\n
-                /roast:\n\t
-                  roasts your friend like you do\n\t
-                  usage: /roast <name>\n
-                /rem:\n\t
-                  make reminders for your friends\n\t
-                  usage: /rem <name>-<time in DD/MM/YY/HH:MM> <reminder>\n
-                /info:\n\t
-                  search anything with power of bing!!!\n\t
-                  usage: /info <search keywords>`;
+      summarises your unread texts
+      usage : /sum
+    /roast:
+      roasts your friend like you do
+      usage: /roast <name>
+    /rem:
+      make reminders for your friends
+      usage: /rem <name>-<time in DD/MM/YY/HH:MM> <reminder>
+    /info:
+      search anything with power of bing!!!
+      usage: /info <search keywords>`;
     sendMessage(helpMessage);
   }
   if (
