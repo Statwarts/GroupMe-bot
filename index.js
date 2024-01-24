@@ -1,6 +1,6 @@
 const StoreMessage = require("./Firebase/StoreMessage.cjs");
 const schedule = require("node-schedule");
-const { parse } = require('date-fns');
+const { parse } = require("date-fns");
 // let StoreMessage;
 // (async () => {
 //   StoreMessage = await import("./Firebase/StoreMessage.cjs");})();
@@ -37,7 +37,22 @@ app.post("/receive", async (req, res) => {
     case false:
       switch (command) {
         case "/help":
-          await sendMessage("Commands: /ping, /help");
+          const helpMessage = `/sum:
+      summarises your unread texts
+      >> /sum
+
+/roast:
+      roasts your friend like you do
+      >> /roast <name>
+
+/rem:
+      make reminders for your friends
+      >> /rem <name>:<time in DD/MM/YY/HH:MM> <reminder>
+
+/info:
+      search anything with power of bing!!!
+      >> /info <search keywords>`;
+          sendMessage(helpMessage);
           console.log("Helped!");
           break;
 
@@ -47,9 +62,7 @@ app.post("/receive", async (req, res) => {
           break;
 
         case "/rem":
-          
           let time = "";
-          
 
           const name = text.slice(5, text.indexOf(":"));
           const colonIndex = text.indexOf(":") + 1;
@@ -58,12 +71,14 @@ app.post("/receive", async (req, res) => {
             time += text[i];
             i++;
           }
-          
+
           const reminder = `A reminder for ${name}\n` + text.slice(i + 1);
           console.log(reminder);
-          const scheduledTime = parse(time,"dd/MM/yyyy HH:mm", new Date(), { addSuffix: true });
+          const scheduledTime = parse(time, "dd/MM/yyyy HH:mm", new Date(), {
+            addSuffix: true,
+          });
           console.log(scheduledTime);
-          if(scheduledTime === "Invalid Date") {
+          if (scheduledTime === "Invalid Date") {
             await sendMessage("Invalid Date");
             break;
           }
