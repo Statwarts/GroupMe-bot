@@ -27,7 +27,7 @@
     "bot"
   ],
   "engine": {
-    "node": "10.x"
+    "node": "20.x"
   },
   "repository": {
     "type": "git",
