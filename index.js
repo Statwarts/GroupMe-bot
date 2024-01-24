@@ -1,6 +1,7 @@
 const StoreMessage = require("./Firebase/StoreMessage.cjs");
 const schedule = require("node-schedule");
-const { parse } = require("date-fns");
+const { parse, format } = require("date-fns");
+const { utcToZonedTime, zonedTimeToUtc } = require('date-fns-tz');
 // let StoreMessage;
 // (async () => {
 //   StoreMessage = await import("./Firebase/StoreMessage.cjs");})();
@@ -86,8 +87,10 @@ app.post("/receive", async (req, res) => {
             );
             return;
           }
-          console.log("parsed time :", scheduledTime);
-          schedule.scheduleJob(scheduledTime, () => {
+
+          const dateAndTime = zonedTimeToUtc(scheduledTime, 'Asia/Kolkata'); 
+          console.log("parsed time :", dateAndTime);
+          schedule.scheduleJob(dateAndTime, () => {
             console.log("sending reminder");
             sendMessage(reminder);
           });
