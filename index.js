@@ -23,7 +23,9 @@ app.post("/receive", async (req, res) => {
   const system = req.body.system;
   const command = text.split(" ")[0];
   console.log("the command is ",command);
-
+  if(req.body.sender_type === "bot"){
+    return;
+  }
   switch (system) {
     case true:
       if (text.includes("has joined the group")) {
@@ -97,7 +99,7 @@ app.post("/receive", async (req, res) => {
           break;
 
         default:
-            // sendMessage("Invalid Command");
+            sendMessage("Invalid Command");
             console.log("Invalid Command",command);
           break;
       }
