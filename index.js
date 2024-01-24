@@ -36,16 +36,17 @@ app.post("/receive", async (req, res) => {
     console.log("Ponged!");
   }
   if (req.body.text === "/help") {
-    const helpMessage = `/sum:
+    const helpMessage = 
+`/sum:
       summarises your unread texts
       usage : /sum
-    /roast:
+/roast:
       roasts your friend like you do
       usage: /roast <name>
-    /rem:
+/rem:
       make reminders for your friends
       usage: /rem <name>-<time in DD/MM/YY/HH:MM> <reminder>
-    /info:
+/info:
       search anything with power of bing!!!
       usage: /info <search keywords>`;
     sendMessage(helpMessage);
