@@ -1,13 +1,10 @@
 const StoreMessage = require("./Firebase/StoreMessage.cjs");
 const schedule = require("node-schedule");
 const { parse, format } = require("date-fns");
-const { utcToZonedTime, zonedTimeToUtc } = require('date-fns-tz');
-// let StoreMessage;
-// (async () => {
-//   StoreMessage = await import("./Firebase/StoreMessage.cjs");})();
-
+const { DateTime } = require('luxon');
 const express = require("express");
 const axios = require("axios");
+const currentTime = DateTime.utc();
 // const mebots = require("mebots");
 const app = express();
 app.use(express.json());
@@ -88,7 +85,7 @@ app.post("/receive", async (req, res) => {
             return;
           }
 
-          const dateAndTime = zonedTimeToUtc(scheduledTime, 'Asia/Kolkata'); 
+          const dateAndTime = DateTime.fromJSDate(scheduledTime).toUTC() ; 
           console.log("parsed time :", dateAndTime);
           schedule.scheduleJob(dateAndTime, () => {
             console.log("sending reminder");
