@@ -82,7 +82,7 @@ app.post("/receive", async (req, res) => {
             await sendMessage("Invalid Date");
             break;
           }
-          schedule.scheduleJob(scheduledTime, sendMessage(reminder));
+          schedule.scheduleJob(scheduledTime,()=> {sendMessage(reminder)});
           await sendMessage("Reminder set!");
           break;
         case "/info":
