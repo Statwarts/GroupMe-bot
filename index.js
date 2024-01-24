@@ -17,6 +17,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/receive", async (req, res) => {
+  console.log(req.body.sender_type);
   const text = req.body.text;
   const senderName = req.body.name;
   const system = req.body.system;
