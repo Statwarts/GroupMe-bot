@@ -1,5 +1,5 @@
 const StoreMessage = require("./Firebase/StoreMessage.cjs");
-const schedule = require("node-schedule");
+const schedule = require("node-schedule-tz");
 const { parse, format } = require("date-fns");
 const { DateTime } = require('luxon');
 const express = require("express");
@@ -85,12 +85,12 @@ app.post("/receive", async (req, res) => {
             return;
           }
 
-          const dateAndTime = DateTime.fromJSDate(scheduledTime,{zone:'Asia/Kolkata'}).toUTC() ; 
-          console.log("parsed time :", dateAndTime);
-          schedule.scheduleJob(dateAndTime, () => {
+          // const dateAndTime = DateTime.fromJSDate(scheduledTime,{zone:'Asia/Kolkata'}).toUTC() ; 
+          console.log("parsed time :", scheduledTime);
+          schedule.scheduleJob(scheduledTime, () => {
             console.log("sending reminder");
             sendMessage(reminder);
-          });
+          },{"tz":"Asia/Kolkata"});
           await sendMessage("Reminder set!");
 
           break;

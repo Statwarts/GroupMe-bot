@@ -15,6 +15,7 @@
     "luxon": "^3.4.4",
     "mebots": "^1.2.0",
     "node-schedule": "^2.1.1",
+    "node-schedule-tz": "^1.2.1-4",
     "nodemon": "^3.0.3"
   },
   "overrides": {
@@ -36,6 +37,5 @@
     "type": "git",
     "url": "https://github.com/Statwarts/GroupMe-bot"
   },
-  
   "license": "MIT"
 }
