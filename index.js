@@ -97,7 +97,7 @@ app.post("/receive", async (req, res) => {
           break;
 
         default:
-            sendMessage("Invalid Command");
+            // sendMessage("Invalid Command");
             console.log("Invalid Command",command);
           break;
       }
