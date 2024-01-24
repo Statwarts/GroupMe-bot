@@ -22,8 +22,8 @@ app.post("/receive", async (req, res) => {
   const senderName = req.body.name;
   const system = req.body.system;
   const command = text.split(" ")[0];
-  console.log("the command is ",command);
-  if(req.body.sender_type === "bot"){
+  console.log("the command is ", command);
+  if (req.body.sender_type === "bot") {
     return;
   }
   switch (system) {
@@ -69,8 +69,7 @@ app.post("/receive", async (req, res) => {
           let time = "";
 
           const name = text.slice(5, text.indexOf(":"));
-          const colonIndex = text.indexOf(":") + 1;
-          let i = colonIndex + 1;
+          let i = text.indexOf(":") + 1;
           while (i < text.length && text[i] !== ">") {
             time += text[i];
             i++;
@@ -82,11 +81,14 @@ app.post("/receive", async (req, res) => {
             addSuffix: true,
           });
           if (isNaN(scheduledTime)) {
-            sendMessage('Invalid date and time format. Please use a valid format.');
+            sendMessage(
+              "Invalid date and time format. Please use a valid format."
+            );
             return;
-        }
-          console.log("parsed time :",scheduledTime);
+          }
+          console.log("parsed time :", scheduledTime);
           schedule.scheduleJob(scheduledTime, () => {
+            console.log("sending reminder");
             sendMessage(reminder);
           });
           await sendMessage("Reminder set!");
@@ -99,8 +101,8 @@ app.post("/receive", async (req, res) => {
           break;
 
         default:
-            sendMessage("Invalid Command");
-            console.log("Invalid Command",command);
+          sendMessage("Invalid Command");
+          console.log("Invalid Command", command);
           break;
       }
       break;
