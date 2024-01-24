@@ -1,7 +1,7 @@
 const StoreMessage = require("./Firebase/StoreMessage.cjs");
 const schedule = require("node-schedule-tz");
 const { parse, format } = require("date-fns");
-const { DateTime } = require('luxon');
+const { DateTime } = require("luxon");
 const express = require("express");
 const axios = require("axios");
 const currentTime = DateTime.utc();
@@ -75,7 +75,7 @@ app.post("/receive", async (req, res) => {
 
           const reminder = `A reminder for ${name}\n` + text.slice(i + 1);
           console.log(time);
-          const scheduledTime = parse(time, "dd/MM/yyyy HH:mm", new Date(), {
+          let scheduledTime = parse(time, "dd/MM/yyyy HH:mm", new Date(), {
             addSuffix: true,
           });
           if (isNaN(scheduledTime)) {
@@ -84,13 +84,18 @@ app.post("/receive", async (req, res) => {
             );
             return;
           }
-
-          // const dateAndTime = DateTime.fromJSDate(scheduledTime,{zone:'Asia/Kolkata'}).toUTC() ; 
-          console.log("parsed time :", scheduledTime);
-          schedule.scheduleJob(scheduledTime, () => {
-            console.log("sending reminder");
-            sendMessage(reminder);
-          },{"tz":"Asia/Kolkata"});
+          // const parsedTimeUTC = DateTime.fromISO(scheduledTime, { zone: 'utc' });
+          // const parsedTimeIndia = parsedTimeUTC.setZone('Asia/Kolkata');
+          // const serverDateTimeSingapore = dateAndTime.setZone('Asia/Singapore');
+          const parsedTimeUTC = DateTime.fromJSDate(scheduledTime).toUTC();
+          console.log("parsed time :", parsedTimeUTC);
+          schedule.scheduleJob(
+            { date: parsedTimeUTC, tz: "Asia/Kolkata" },
+            () => {
+              console.log("sending reminder");
+              sendMessage(reminder);
+            }
+          );
           await sendMessage("Reminder set!");
 
           break;
