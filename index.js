@@ -119,7 +119,6 @@ app.post("/receive", async (req, res) => {
       break;
   }
 
-  StoreMessage(req.body);
 });
 
 async function sendMessage(text) {
