@@ -5,6 +5,8 @@ const { DateTime } = require("luxon");
 const express = require("express");
 const axios = require("axios");
 const Summarize = require("./summariser.js");
+require('dotenv').config();
+
 const currentTime = DateTime.utc();
 let lastMessageTime = currentTime;
 // const mebots = require("mebots");
@@ -112,7 +114,8 @@ app.post("/receive", async (req, res) => {
           break;
         case "/sum":
           const textToSummarize = text.slice(5);
-          const summary = await Summarize(textToSummarize);
+          const summary_persent = 20;
+          const summary = await Summarize(textToSummarize,summary_persent);
           sendMessage(summary);
           break;
         default:
@@ -149,6 +152,7 @@ async function sendMessage(text) {
 }
 
 app.listen(3000, () => {
+  // console.log(process.env);
   console.log("Listening on port 3000");
 });
 
