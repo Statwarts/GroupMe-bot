@@ -114,6 +114,7 @@ app.post("/receive", async (req, res) => {
           const textToSummarize = text.slice(5);
           const summary = await Summarize(textToSummarize);
           sendMessage(summary);
+          break;
         default:
           sendMessage("I am not programmed to do that yet!");
           console.log("Invalid Command", command);
