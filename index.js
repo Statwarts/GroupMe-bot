@@ -39,7 +39,7 @@ app.post("/receive", async (req, res) => {
   if (req.body.sender_type === "bot" || req.body.name === "Innerve8") {
     return;
   }
-  await StoreMessage(req.body);
+  StoreMessage(req.body);
   if (command[0] !== "/" && system === false) {
     return;
   }
