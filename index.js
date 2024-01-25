@@ -24,8 +24,9 @@ app.post("/receive", async (req, res) => {
   if (req.body.sender_type === "bot") {
     return;
   }
+  StoreMessage(req.body);
   if(command[0] !== '/'){
-    StoreMessage(req.body);
+    return
   }
   switch (system) {
     case true:
