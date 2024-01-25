@@ -31,7 +31,7 @@ app.post("/receive", async (req, res) => {
   const system = req.body.system;
   const command = text.split(" ")[0];
   console.log("the command is ", command);
-  if (req.body.sender_type === "bot") {
+  if (req.body.sender_type === "bot" || req.body.name === "Innerve8") {
     return;
   }
   StoreMessage(req.body);
@@ -118,7 +118,7 @@ app.post("/receive", async (req, res) => {
           break;
 
         default:
-          sendMessage("Invalid Command");
+          sendMessage("I am not programmed to do that yet!");
           console.log("Invalid Command", command);
           break;
       }
@@ -127,6 +127,8 @@ app.post("/receive", async (req, res) => {
     default:
       break;
   }
+
+  StoreMessage(req.body);
 });
 
 async function sendMessage(text) {
