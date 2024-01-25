@@ -12,7 +12,7 @@ const Summarize = async (textToSummarize,summary_percent) => {
       url: 'https://text-analysis12.p.rapidapi.com/summarize-text/api/v1.1',
       headers: {
         'content-type': 'application/json',
-        'X-RapidAPI-Key': '15b80fdf3emsh5acd32eeb76f5e6p1a0c6ajsn3f1562d9701a7',
+        'X-RapidAPI-Key': process.env.RAPIDAPI_KEY,
         'X-RapidAPI-Host': 'text-analysis12.p.rapidapi.com'
       },
       data: {

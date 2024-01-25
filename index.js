@@ -152,7 +152,7 @@ async function sendMessage(text) {
 }
 
 app.listen(3000, () => {
-  // console.log(process.env);
+  console.log(typeof process.env.RAPIDAPI_KEY);
   console.log("Listening on port 3000");
 });
 
