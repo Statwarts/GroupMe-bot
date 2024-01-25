@@ -115,7 +115,7 @@ app.post("/receive", async (req, res) => {
         case "/sum":
           const textToSummarize = text.slice(5);
           const summary_persent = 20;
-          const summary = await Summarize(textToSummarize,summary_persent);
+          const summary ="Here is your Summary\n" +  await Summarize(textToSummarize,summary_persent);
           sendMessage(summary);
           break;
         default:

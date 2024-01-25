@@ -24,6 +24,7 @@ const Summarize = async (textToSummarize,summary_percent) => {
     
     try {
         const response = await axios.request(options);
+        return response.data.summary;
         console.log(response.data);
     } catch (error) {
         console.error(error);
