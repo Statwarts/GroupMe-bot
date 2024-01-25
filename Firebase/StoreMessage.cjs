@@ -16,4 +16,3 @@ const StoreMessage = async (message) => {
 };
 
 module.exports = StoreMessage;
-

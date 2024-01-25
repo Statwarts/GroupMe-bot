@@ -1,7 +1,6 @@
 const StoreMessage = require("./Firebase/StoreMessage.cjs");
 const schedule = require("node-schedule");
 const moment = require("moment-timezone");
-const { parse, format } = require("date-fns");
 const { DateTime } = require("luxon");
 const express = require("express");
 const axios = require("axios");
@@ -18,7 +17,6 @@ function convertToUTC(indiaDateStr) {
   return utcDateStr;
 }
 
-// let bot = new mebots.Bot("Innerve8", process.env.BOT_TOKEN);
 app.get("/", (req, res) => {
   console.log("hello world");
   res.send("Hello World!");
@@ -29,8 +27,7 @@ app.post("/receive", async (req, res) => {
     return;
   }
   lastMessageTime = req.body.created_at;
-  console.log(req.body);
-  console.log(req.body.sender_type);
+
   const text = req.body.text;
   const senderName = req.body.name;
   const system = req.body.system;
