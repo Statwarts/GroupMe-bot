@@ -123,7 +123,7 @@ app.post("/receive", async (req, res) => {
     default:
       break;
   }
-
+  StoreMessage(text);
 });
 
 async function sendMessage(text) {
