@@ -34,7 +34,7 @@ app.post("/receive", async (req, res) => {
   if (req.body.sender_type === "bot" || req.body.name === "Innerve8") {
     return;
   }
-  StoreMessage(req.body);
+  await StoreMessage(req.body);
   if (command[0] !== "/" && system === false) {
     return;
   }
@@ -89,15 +89,6 @@ app.post("/receive", async (req, res) => {
 
           const reminder = `A reminder for ${name}\n` + text.slice(i + 1);
           console.log(time);
-          // let scheduledTime = parse(time, "dd/MM/yyyy HH:mm", new Date(), {
-          //   addSuffix: true,
-          // });
-          // if (isNaN(scheduledTime)) {
-          //   sendMessage(
-          //     "Invalid date and time format. Please use a valid format."
-          //   );
-          //   return;
-          // }
           
           const parsedTimeUTC = convertToUTC(time);
           console.log("parsed time :", parsedTimeUTC);
