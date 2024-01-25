@@ -6,6 +6,7 @@ const { DateTime } = require("luxon");
 const express = require("express");
 const axios = require("axios");
 const currentTime = DateTime.utc();
+let lastMessageTime = currentTime;
 // const mebots = require("mebots");
 const app = express();
 app.use(express.json());
@@ -24,6 +25,10 @@ app.get("/", (req, res) => {
 });
 
 app.post("/receive", async (req, res) => {
+  if(req.body.created_at === lastMessageTime){
+    return;
+  }
+  lastMessageTime = req.body.created_at;
   console.log(req.body);
   console.log(req.body.sender_type);
   const text = req.body.text;
