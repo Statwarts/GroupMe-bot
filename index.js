@@ -4,6 +4,7 @@ const moment = require("moment-timezone");
 const { DateTime } = require("luxon");
 const express = require("express");
 const axios = require("axios");
+const Summarize = require("./summariser.js");
 const currentTime = DateTime.utc();
 let lastMessageTime = currentTime;
 // const mebots = require("mebots");
@@ -109,7 +110,10 @@ app.post("/receive", async (req, res) => {
           const searchKey = text.slice(6);
           // Implement search logic here
           break;
-
+        case "/sum":
+          const textToSummarize = text.slice(5);
+          const summary = await Summarize(textToSummarize);
+          sendMessage(summary);
         default:
           sendMessage("I am not programmed to do that yet!");
           console.log("Invalid Command", command);
