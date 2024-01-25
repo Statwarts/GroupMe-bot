@@ -14,6 +14,7 @@
     "firebase": "^10.7.2",
     "luxon": "^3.4.4",
     "mebots": "^1.2.0",
+    "moment-timezone": "^0.5.44",
     "node-schedule": "^2.1.1",
     "node-schedule-tz": "^1.2.1-4",
     "nodemon": "^3.0.3"

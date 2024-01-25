@@ -1,5 +1,6 @@
 const StoreMessage = require("./Firebase/StoreMessage.cjs");
-const schedule = require("node-schedule-tz");
+const schedule = require("node-schedule");
+const moment = require("moment-timezone");
 const { parse, format } = require("date-fns");
 const { DateTime } = require("luxon");
 const express = require("express");
@@ -9,12 +10,21 @@ const currentTime = DateTime.utc();
 const app = express();
 app.use(express.json());
 
+function convertToUTC(indiaDateStr) {
+  const indiaDate = moment.tz(indiaDateStr, "DD/MM/YYYY HH:mm", "Asia/Kolkata");
+  const utcDate = indiaDate.clone().utc();
+  const utcDateStr = utcDate.format("YYYY-MM-DD HH:mm:ss [UTC]");
+  return utcDateStr;
+}
+
 // let bot = new mebots.Bot("Innerve8", process.env.BOT_TOKEN);
 app.get("/", (req, res) => {
+  console.log("hello world");
   res.send("Hello World!");
 });
 
 app.post("/receive", async (req, res) => {
+  console.log(req.body);
   console.log(req.body.sender_type);
   const text = req.body.text;
   const senderName = req.body.name;
@@ -25,8 +35,8 @@ app.post("/receive", async (req, res) => {
     return;
   }
   StoreMessage(req.body);
-  if(command[0] !== '/' && system === false){
-    return
+  if (command[0] !== "/" && system === false) {
+    return;
   }
   switch (system) {
     case true:
@@ -79,22 +89,20 @@ app.post("/receive", async (req, res) => {
 
           const reminder = `A reminder for ${name}\n` + text.slice(i + 1);
           console.log(time);
-          let scheduledTime = parse(time, "dd/MM/yyyy HH:mm", new Date(), {
-            addSuffix: true,
-          });
-          if (isNaN(scheduledTime)) {
-            sendMessage(
-              "Invalid date and time format. Please use a valid format."
-            );
-            return;
-          }
-          // const parsedTimeUTC = DateTime.fromISO(scheduledTime, { zone: 'utc' });
-          // const parsedTimeIndia = parsedTimeUTC.setZone('Asia/Kolkata');
-          // const serverDateTimeSingapore = dateAndTime.setZone('Asia/Singapore');
-          const parsedTimeUTC = DateTime.fromJSDate(scheduledTime).toUTC();
+          // let scheduledTime = parse(time, "dd/MM/yyyy HH:mm", new Date(), {
+          //   addSuffix: true,
+          // });
+          // if (isNaN(scheduledTime)) {
+          //   sendMessage(
+          //     "Invalid date and time format. Please use a valid format."
+          //   );
+          //   return;
+          // }
+          
+          const parsedTimeUTC = convertToUTC(time);
           console.log("parsed time :", parsedTimeUTC);
           schedule.scheduleJob(
-            { date: parsedTimeUTC, tz: "Asia/Kolkata" },
+            parsedTimeUTC ,
             () => {
               console.log("sending reminder");
               sendMessage(reminder);
@@ -120,7 +128,6 @@ app.post("/receive", async (req, res) => {
       break;
   }
 });
-
 
 async function sendMessage(text) {
   try {
