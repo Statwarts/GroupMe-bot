@@ -25,7 +25,7 @@ app.post("/receive", async (req, res) => {
     return;
   }
   StoreMessage(req.body);
-  if(command[0] !== '/'){
+  if(command[0] !== '/' && system === false){
     return
   }
   switch (system) {
