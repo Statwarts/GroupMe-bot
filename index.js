@@ -121,7 +121,7 @@ app.post("/receive", async (req, res) => {
               messages: [{ role: "user", content: searchKey }],
             });
 
-            console.log(chatCompletion.choices[0].message);
+            console.log("This is what chatGPT says",chatCompletion.choices[0].message);
             res.json({ response: chatCompletion.choices[0].message.content });
             // let feedback =  chatCompletion.choices[0].message.content;
             // sendMessage(feedback);
