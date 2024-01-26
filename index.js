@@ -122,9 +122,9 @@ app.post("/receive", async (req, res) => {
             });
 
             console.log(chatCompletion.choices[0].message);
-            res.json({ response: chatCompletion.choices[0].message });
-            let feedback =  chatCompletion.choices[0].message.content;
-            sendMessage(feedback);
+            res.json({ response: chatCompletion.choices[0].message.content });
+            // let feedback =  chatCompletion.choices[0].message.content;
+            // sendMessage(feedback);
           } catch (e) {
             console.error(e);
             res.status(500).json({ error: "Internal Server Error" });
