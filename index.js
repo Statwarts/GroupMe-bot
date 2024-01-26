@@ -113,16 +113,18 @@ app.post("/receive", async (req, res) => {
           const op = new OpenAI({
             apiKey: OpenAIapi,
           });
-
+          console.log(searchKey);
           try {
             console.log(req.body);
             const chatCompletion = await op.chat.completions.create({
               model: "gpt-3.5-turbo",
-              messages: [{ role: "user", content: "Hello!" }],
+              messages: [{ role: "user", content: searchKey }],
             });
 
             console.log(chatCompletion.choices[0].message);
             res.json({ response: chatCompletion.choices[0].message });
+            let feedback =  chatCompletion.choices[0].message.content;
+            sendMessage(feedback);
           } catch (e) {
             console.error(e);
             res.status(500).json({ error: "Internal Server Error" });
