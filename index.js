@@ -7,7 +7,8 @@ const axios = require("axios");
 const Summarize = require("./summariser.js");
 require("dotenv").config();
 const OpenAIapi = "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";
-import OpenAI from "openai";
+// import OpenAI from "openai";
+const OpenAI= require("openai")
 
 const currentTime = DateTime.utc();
 let lastMessageTime = currentTime;
