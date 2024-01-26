@@ -1,11 +1,11 @@
-const StoreMessage = require("./Firebase/StoreMessage.cjs");
+const {StoreMessage, getMessagesUpto} = require("./Firebase/StoreMessage.cjs");
 const schedule = require("node-schedule");
 const moment = require("moment-timezone");
 const { DateTime } = require("luxon");
 const express = require("express");
 const axios = require("axios");
 const Summarize = require("./summariser.js");
-require('dotenv').config();
+require("dotenv").config();
 
 const currentTime = DateTime.utc();
 let lastMessageTime = currentTime;
@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/receive", async (req, res) => {
-  if(req.body.created_at === lastMessageTime){
+  if (req.body.created_at === lastMessageTime) {
     return;
   }
   lastMessageTime = req.body.created_at;
@@ -94,16 +94,13 @@ app.post("/receive", async (req, res) => {
 
           const reminder = `A reminder for ${name}\n` + text.slice(i + 1);
           console.log(time);
-          
+
           const parsedTimeUTC = convertToUTC(time);
           console.log("parsed time :", parsedTimeUTC);
-          schedule.scheduleJob(
-            parsedTimeUTC ,
-            () => {
-              console.log("sending reminder");
-              sendMessage(reminder);
-            }
-          );
+          schedule.scheduleJob(parsedTimeUTC, () => {
+            console.log("sending reminder");
+            sendMessage(reminder);
+          });
           await sendMessage("Reminder set!");
 
           break;
@@ -113,9 +110,16 @@ app.post("/receive", async (req, res) => {
           // Implement search logic here
           break;
         case "/sum":
-          const textToSummarize = text.slice(5);
-          const summary_persent = 20;
-          const summary ="Here is your Summary\n" +  await Summarize(textToSummarize,summary_persent);
+          let summary = "";
+          if (text.length <= 5) {
+            const textToSummarize = getMessagesUpto(senderName);
+          } else {
+            const textToSummarize = text.slice(5);
+            const summary_persent = 20;
+            summary =
+              "Here is your Summary\n" +
+              (await Summarize(textToSummarize, summary_persent));
+          }
           sendMessage(summary);
           break;
         default:

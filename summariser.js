@@ -1,8 +1,5 @@
 const axios = require("axios");
 
-const min = (a,b) => {
-    return a<b?a:b;
-}
 
 const Summarize = async (textToSummarize,summary_percent) => {
     const axios = require('axios');
