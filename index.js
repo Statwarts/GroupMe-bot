@@ -5,7 +5,9 @@ const { DateTime } = require("luxon");
 const express = require("express");
 const axios = require("axios");
 const Summarize = require("./summariser.js");
-require('dotenv').config();
+require("dotenv").config();
+const OpenAIapi = "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";
+import OpenAI from "openai";
 
 const currentTime = DateTime.utc();
 let lastMessageTime = currentTime;
@@ -26,7 +28,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/receive", async (req, res) => {
-  if(req.body.created_at === lastMessageTime){
+  if (req.body.created_at === lastMessageTime) {
     return;
   }
   lastMessageTime = req.body.created_at;
@@ -94,28 +96,43 @@ app.post("/receive", async (req, res) => {
 
           const reminder = `A reminder for ${name}\n` + text.slice(i + 1);
           console.log(time);
-          
+
           const parsedTimeUTC = convertToUTC(time);
           console.log("parsed time :", parsedTimeUTC);
-          schedule.scheduleJob(
-            parsedTimeUTC ,
-            () => {
-              console.log("sending reminder");
-              sendMessage(reminder);
-            }
-          );
+          schedule.scheduleJob(parsedTimeUTC, () => {
+            console.log("sending reminder");
+            sendMessage(reminder);
+          });
           await sendMessage("Reminder set!");
 
           break;
 
         case "/info":
           const searchKey = text.slice(6);
-          // Implement search logic here
+          const op = new OpenAI({
+            apiKey: OpenAIapi,
+          });
+
+          try {
+            console.log(req.body);
+            const chatCompletion = await op.chat.completions.create({
+              model: "gpt-3.5-turbo",
+              messages: [{ role: "user", content: "Hello!" }],
+            });
+
+            console.log(chatCompletion.choices[0].message);
+            res.json({ response: chatCompletion.choices[0].message });
+          } catch (e) {
+            console.error(e);
+            res.status(500).json({ error: "Internal Server Error" });
+          }
           break;
         case "/sum":
           const textToSummarize = text.slice(5);
           const summary_persent = 20;
-          const summary ="Here is your Summary\n" +  await Summarize(textToSummarize,summary_persent);
+          const summary =
+            "Here is your Summary\n" +
+            (await Summarize(textToSummarize, summary_persent));
           sendMessage(summary);
           break;
         default:
