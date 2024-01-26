@@ -7,6 +7,7 @@ const axios = require("axios");
 const Summarize = require("./Functions/summariser.js");
 require("dotenv").config();
 const ChatGPTInfo = require("./Functions/ChatGPTInfo.cjs");
+
 // import OpenAI from "openai";
 
 const currentTime = DateTime.utc();
@@ -97,10 +98,7 @@ app.post("/receive", async (req, res) => {
           
           const parsedTimeUTC = convertToUTC(time);
           console.log("parsed time :", parsedTimeUTC);
-          schedule.scheduleJob(parsedTimeUTC, () => {
-            console.log("sending reminder");
-            sendMessage(reminder);
-          });
+          
           schedule.scheduleJob(parsedTimeUTC, () => {
             console.log("sending reminder");
             sendMessage(reminder);
