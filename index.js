@@ -109,7 +109,7 @@ app.post("/receive", async (req, res) => {
           break;
 
         case "/info":
-          const searchKey = text.slice(6);
+          const searchKey = text.slice(6) + "in about 50 words";
           const op = new OpenAI({
             apiKey: OpenAIapi,
           });
