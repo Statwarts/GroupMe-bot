@@ -15,7 +15,8 @@
     "luxon": "^3.4.4",
     "moment-timezone": "^0.5.44",
     "node-schedule": "^2.1.1",
-    "nodemon": "^3.0.3"
+    "nodemon": "^3.0.3",
+    "openai": "^4.26.0"
   },
   "overrides": {
     "@nestjs/platform-express": {
