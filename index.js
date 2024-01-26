@@ -4,8 +4,10 @@ const moment = require("moment-timezone");
 const { DateTime } = require("luxon");
 const express = require("express");
 const axios = require("axios");
-const Summarize = require("./summariser.js");
+const Summarize = require("./Functions/summariser.js");
 require("dotenv").config();
+const ChatGPTInfo = require("./Functions/ChatGPTInfo.cjs");
+// import OpenAI from "openai";
 
 const currentTime = DateTime.utc();
 let lastMessageTime = currentTime;
@@ -26,7 +28,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/receive", async (req, res) => {
-  if (req.body.created_at === lastMessageTime) {
+  if  (req.body.created_at === lastMessageTime)  {
     return;
   }
   lastMessageTime = req.body.created_at;
@@ -84,19 +86,21 @@ app.post("/receive", async (req, res) => {
 
         case "/rem":
           let time = "";
-
           const name = text.slice(5, text.indexOf(":"));
           let i = text.indexOf(":") + 1;
           while (i < text.length && text[i] !== ">") {
             time += text[i];
             i++;
           }
-
           const reminder = `A reminder for ${name}\n` + text.slice(i + 1);
           console.log(time);
-
+          
           const parsedTimeUTC = convertToUTC(time);
           console.log("parsed time :", parsedTimeUTC);
+          schedule.scheduleJob(parsedTimeUTC, () => {
+            console.log("sending reminder");
+            sendMessage(reminder);
+          });
           schedule.scheduleJob(parsedTimeUTC, () => {
             console.log("sending reminder");
             sendMessage(reminder);
@@ -106,8 +110,9 @@ app.post("/receive", async (req, res) => {
           break;
 
         case "/info":
-          const searchKey = text.slice(6);
-          // Implement search logic here
+          const searchKey = text.slice(6) + "in about 50 words";
+          const chatResponse = await ChatGPTInfo(searchKey);
+          sendMessage(chatResponse);
           break;
         case "/sum":
           let summary = "";
