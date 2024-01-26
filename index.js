@@ -6,9 +6,9 @@ const express = require("express");
 const axios = require("axios");
 const Summarize = require("./summariser.js");
 require("dotenv").config();
-const OpenAIapi = "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";
+const ChatGPTInfo = require("./ChatGPTInfo.cjs")
 // import OpenAI from "openai";
-const OpenAI= require("openai")
+
 
 const currentTime = DateTime.utc();
 let lastMessageTime = currentTime;
@@ -110,25 +110,11 @@ app.post("/receive", async (req, res) => {
 
         case "/info":
           const searchKey = text.slice(6) + "in about 50 words";
-          const op = new OpenAI({
-            apiKey: OpenAIapi,
-          });
-          console.log(searchKey);
-          try {
-            console.log(req.body);
-            const chatCompletion = await op.chat.completions.create({
-              model: "gpt-3.5-turbo",
-              messages: [{ role: "user", content: searchKey }],
-            });
-
-            console.log("This is what chatGPT says",chatCompletion.choices[0].message);
-            sendMessage(chatCompletion.choices[0].message.content);
-            res.json({ response: chatCompletion.choices[0].message.content });
+          const chatResponse = await ChatGPTInfo(searchKey);
+            sendMessage(chatResponse);
+            
             // let feedback =  chatCompletion.choices[0].message.content;
-          } catch (e) {
-            console.error(e);
-            res.status(500).json({ error: "Internal Server Error" });
-          }
+          
           break;
         case "/sum":
           const textToSummarize = text.slice(5);
