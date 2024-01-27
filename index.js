@@ -125,6 +125,9 @@ app.post("/receive", async (req, res) => {
           }
           sendMessage(summary);
           break;
+          case "/goodbot":
+            sendMessage("Thank you!");
+            break;
         default:
           sendMessage("I am not programmed to do that yet!");
           console.log("Invalid Command", command);
