@@ -15,8 +15,7 @@ const ChatGPTInfo = async (searchKey) => {
     console.log("This is what chatGPT says", chatCompletion.choices[0].message);
     return chatCompletion.choices[0].message.content;
   } catch (e) {
-    console.error(e," in chatgpt");
-    // res.status(500).json({ error: "Internal Server Error" });
+    console.error(e);
   }
 };
 
