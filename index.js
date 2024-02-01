@@ -7,7 +7,7 @@ const axios = require("axios");
 const Summarize = require("./Functions/summariser.js");
 require("dotenv").config();
 const ChatGPTInfo = require("./Functions/ChatGPTInfo.cjs");
-
+let BingChatAPI = require("./Functions/BingChatInfo.cjs");
 // import OpenAI from "openai";
 
 const currentTime = DateTime.utc();
@@ -108,9 +108,11 @@ app.post("/receive", async (req, res) => {
           break;
 
         case "/info":
-          const searchKey = text.slice(6) + "in about 50 words";
+          const searchKey = text.slice(6) + " in about 50 words";
           const chatResponse = await ChatGPTInfo(searchKey);
+          // const bingResponse = await BingChatAPI(searchKey);
           sendMessage(chatResponse);
+          console.log("this is what bing says",bingResponse);
           break;
         case "/sum":
           let summary = "";
