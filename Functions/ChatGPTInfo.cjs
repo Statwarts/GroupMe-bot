@@ -16,7 +16,7 @@ const ChatGPTInfo = async (searchKey) => {
     return chatCompletion.choices[0].message.content;
   } catch (e) {
     console.error(e);
-    res.status(500).json({ error: "Internal Server Error" });
+    // res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
